@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информатика для школьников</title>
+    <style>
+        /* Основные стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f8ff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Заголовок */
+        header {
+            text-align: center;
+            padding: 60px 0;
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            color: #1a73e8;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Секция с описанием */
+        .description-card {
+            background-color: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            animation: slideUp 0.8s ease-out;
+        }
+        
+        .description-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        h2 {
+            color: #34a853;
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+        
+        /* Секция с интересными фактами */
+        .facts-section {
+            margin-bottom: 40px;
+            animation: slideUp 1s ease-out;
+        }
+        
+        .facts-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .fact-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            flex: 1 1 250px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #fbbc05;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .fact-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Секция с темами */
+        .topics-section {
+            margin-bottom: 60px;
+            animation: slideUp 1.2s ease-out;
+        }
+        
+        .topics-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            list-style-type: none;
+        }
+        
+        .topic-item {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .topic-item:hover {
+            transform: scale(1.03);
+        }
+        
+        .topic-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #e8f0fe;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            font-size: 1.5rem;
+            color: #1a73e8;
+        }
+        
+        /* Футер */
+        footer {
+            background-color: #e8f0fe;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+            color: #666;
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .topics-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Информатика</h1>
+            <p>Увлекательный мир компьютеров и алгоритмов</p>
+        </header>
+        
+        <section class="description-card">
+            <h2>Что такое информатика?</h2>
+            <p>Информатика — это наука о способах хранения, обработки и передачи информации с помощью компьютеров. Она охватывает множество тем: от программирования и алгоритмов до устройства компьютеров и работы с информацией. Этот предмет учит нас мыслить логически и решать сложные задачи простыми шагами.</p>
+        </section>
+        
+        <section class="facts-section">
+            <h2>Интересные факты</h2>
+            <div class="facts-container">
+                <div class="fact-card">
+                    <h3>Первый программист</h3>
+                    <p>Первым программистом в истории была женщина — Ада Лавлейс. Она написала первый алгоритм для аналитической машины Чарльза Бэббиджа в середине XIX века.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Первый "баг"</h3>
+                    <p>Термин "баг" (ошибка в программе) появился, когда в реле компьютера Mark II застрял настоящий жук (мотылёк), вызвав сбой в работе.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Объём данных</h3>
+                    <p>Ежедневно в интернете создаётся около 2.5 квинтиллиона байт данных. Если записать это количество на DVD-диски, то получится стопка высотой до Луны и обратно.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="topics-section">
+            <h2>Что мы изучаем</h2>
+            <ul class="topics-list">
+                <li class="topic-item">
+                    <div class="topic-icon">💻</div>
+                    <div>
+                        <h3>Устройство компьютера</h3>
+                        <p>Процессор, память, устройства ввода и вывода</p>
+                    </div>
+                </li>
+                <li class="topic-item">
+                    <div class="topic-icon">🌐</div>
+                    <div>
+                        <h3>Компьютерные сети</h3>
+                        <p>Интернет, протоколы передачи данных</p>
+                    </div>
+                </li>
+                <li class="topic-item">
+                    <div class="topic-icon">🧮</div>
+                    <div>
+                        <h3>Алгоритмы</h3>
+                        <p>Последовательность действий для решения задач</p>
+                    </div>
+                </li>
+                <li class="topic-item">
+                    <div class="topic-icon">📊</div>
+                    <div>
+                        <h3>Обработка данных</h3>
+                        <p>Таблицы, базы данных, графики</p>
+                    </div>
+                </li>
+                <li class="topic-item">
+                    <div class="topic-icon">🔐</div>
+                    <div>
+                        <h3>Информационная безопасность</h3>
+                        <p>Защита данных и безопасность в интернете</p>
+                    </div>
+                </li>
+                <li class="topic-item">
+                    <div class="topic-icon">📝</div>
+                    <div>
+                        <h3>Программирование</h3>
+                        <p>Основы разработки программ и веб-сайтов</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </div>
+    
+    <footer>
+        <p>Школьный проект по информатике</p>
+        <p>© 2025</p>
+    </footer>
+</body>
+</html>
