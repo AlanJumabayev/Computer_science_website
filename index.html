@@ -3,255 +3,545 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Информатика для школьников</title>
+    <title>Мир Информатики: Путешествие в Цифровую Вселенную</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <style>
-        /* Основные стили */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700&display=swap');
+        :root {
+            --primary-color: #3B82F6;
+            --secondary-color: #10B981;
+            --bg-gradient: linear-gradient(135deg, #E0F2FE 0%, #FFFFFF 100%);
         }
-        
         body {
-            background-color: #f0f8ff;
-            color: #333;
-            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
-        
-        /* Заголовок */
-        header {
-            text-align: center;
-            padding: 60px 0;
-            animation: fadeIn 1s ease-in-out;
+        .card-hover {
+            transition: all 0.3s ease;
+            transform-origin: center;
         }
-        
-        h1 {
-            font-size: 4rem;
-            color: #1a73e8;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        .card-hover:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        
-        /* Секция с описанием */
-        .description-card {
-            background-color: white;
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease;
-            animation: slideUp 0.8s ease-out;
+        .animated-gradient {
+            background: linear-gradient(-45deg, #3B82F6, #10B981, #6366F1, #EC4899);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
         }
-        
-        .description-card:hover {
-            transform: translateY(-5px);
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-        
-        h2 {
-            color: #34a853;
-            margin-bottom: 15px;
-            font-size: 2rem;
-        }
-        
-        /* Секция с интересными фактами */
-        .facts-section {
-            margin-bottom: 40px;
-            animation: slideUp 1s ease-out;
-        }
-        
-        .facts-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-        
-        .fact-card {
-            background-color: white;
-            border-radius: 15px;
-            padding: 20px;
-            flex: 1 1 250px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-            border-left: 4px solid #fbbc05;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .fact-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Секция с темами */
-        .topics-section {
-            margin-bottom: 60px;
-            animation: slideUp 1.2s ease-out;
-        }
-        
-        .topics-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            list-style-type: none;
-        }
-        
-        .topic-item {
-            background-color: white;
-            border-radius: 15px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-        
-        .topic-item:hover {
-            transform: scale(1.03);
-        }
-        
-        .topic-icon {
-            width: 50px;
-            height: 50px;
-            background-color: #e8f0fe;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-right: 15px;
-            font-size: 1.5rem;
-            color: #1a73e8;
-        }
-        
-        /* Футер */
-        footer {
-            background-color: #e8f0fe;
-            text-align: center;
-            padding: 20px;
-            border-radius: 10px 10px 0 0;
-            color: #666;
-        }
-        
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes slideUp {
-            from { 
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to { 
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 3rem;
-            }
-            
-            .topics-list {
-                grid-template-columns: 1fr;
-            }
-            
-            .container {
-                padding: 15px;
-            }
+        .glowing-border {
+            border: 2px solid transparent;
+            background-image: linear-gradient(white, white), 
+                              linear-gradient(to right, #3B82F6, #10B981);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Информатика</h1>
-            <p>Увлекательный мир компьютеров и алгоритмов</p>
-        </header>
-        
-        <section class="description-card">
-            <h2>Что такое информатика?</h2>
-            <p>Информатика — это наука о способах хранения, обработки и передачи информации с помощью компьютеров. Она охватывает множество тем: от программирования и алгоритмов до устройства компьютеров и работы с информацией. Этот предмет учит нас мыслить логически и решать сложные задачи простыми шагами.</p>
-        </section>
-        
-        <section class="facts-section">
-            <h2>Интересные факты</h2>
-            <div class="facts-container">
-                <div class="fact-card">
-                    <h3>Первый программист</h3>
-                    <p>Первым программистом в истории была женщина — Ада Лавлейс. Она написала первый алгоритм для аналитической машины Чарльза Бэббиджа в середине XIX века.</p>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // Расширенная навигация с иконками и подсветкой
+        const Navigation = ({ changePage, currentPage }) => {
+            const navItems = [
+                { 
+                    page: 'home', 
+                    label: 'Главная', 
+                    icon: '🏠' 
+                },
+                { 
+                    page: 'theory', 
+                    label: 'Теория', 
+                    icon: '💡' 
+                },
+                { 
+                    page: 'facts', 
+                    label: 'Факты', 
+                    icon: '🌐' 
+                },
+                { 
+                    page: 'interactive', 
+                    label: 'Интерактив', 
+                    icon: '🎮' 
+                }
+            ];
+
+            return (
+                <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md shadow-md">
+                    <div className="container mx-auto flex justify-center space-x-2 md:space-x-6 p-3">
+                        {navItems.map((item) => (
+                            <button 
+                                key={item.page}
+                                onClick={() => changePage(item.page)} 
+                                className={`
+                                    flex items-center space-x-2 px-4 py-2 rounded-full transition-all 
+                                    ${currentPage === item.page 
+                                        ? 'bg-blue-500 text-white' 
+                                        : 'hover:bg-blue-100 text-gray-700'}
+                                `}
+                            >
+                                <span>{item.icon}</span>
+                                <span className="hidden md:inline">{item.label}</span>
+                            </button>
+                        ))}
+                    </div>
+                </nav>
+            );
+        };
+
+        // Расширенная главная страница
+        const HomePage = () => {
+            const highlights = [
+                {
+                    title: 'Алгоритмы',
+                    description: 'Погрузись в мир логических последовательностей и решения задач.',
+                    icon: '🧩',
+                    color: 'bg-blue-100'
+                },
+                {
+                    title: 'Программирование',
+                    description: 'Создавай цифровые миры с помощью языков программирования.',
+                    icon: '💻',
+                    color: 'bg-green-100'
+                },
+                {
+                    title: 'Технологии',
+                    description: 'Исследуй последние тренды в мире высоких технологий.',
+                    icon: '🚀',
+                    color: 'bg-purple-100'
+                }
+            ];
+
+            return (
+                <div className="min-h-screen flex flex-col justify-center container mx-auto px-4 pt-24">
+                    <div className="text-center mb-12">
+                        <h1 className="text-5xl md:text-6xl font-bold text-transparent bg-clip-text animated-gradient mb-4">
+                            Мир Информатики
+                        </h1>
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Путешествие в захватывающий мир цифровых технологий, алгоритмов и инноваций
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-6">
+                        {highlights.map((item, index) => (
+                            <div 
+                                key={index} 
+                                className={`
+                                    ${item.color} p-6 rounded-xl shadow-lg 
+                                    card-hover glass-morphism flex flex-col items-center text-center
+                                `}
+                            >
+                                <div className="text-5xl mb-4">{item.icon}</div>
+                                <h2 className="text-2xl font-semibold text-gray-800 mb-3">
+                                    {item.title}
+                                </h2>
+                                <p className="text-gray-600">
+                                    {item.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-                <div class="fact-card">
-                    <h3>Первый "баг"</h3>
-                    <p>Термин "баг" (ошибка в программе) появился, когда в реле компьютера Mark II застрял настоящий жук (мотылёк), вызвав сбой в работе.</p>
+            );
+        };
+
+        // Расширенная страница теории
+        const TheoryPage = () => {
+            const complexTopics = [
+                {
+                    title: 'Алгоритмы и Структуры Данных',
+                    description: 'Глубокое погружение в эффективные методы обработки и хранения информации.',
+                    subtopics: [
+                        'Сложность алгоритмов (Big O)',
+                        'Рекурсивные алгоритмы',
+                        'Динамическое программирование'
+                    ],
+                    difficulty: 'Сложный',
+                    icon: '🧠'
+                },
+                {
+                    title: 'Машинное Обучение',
+                    description: 'Изучение интеллектуальных систем, способных учиться и адаптироваться.',
+                    subtopics: [
+                        'Нейронные сети',
+                        'Глубокое обучение',
+                        'Анализ больших данных'
+                    ],
+                    difficulty: 'Продвинутый',
+                    icon: '🤖'
+                },
+                {
+                    title: 'Кибербезопасность',
+                    description: 'Защита цифровых систем и информации от киберугроз.',
+                    subtopics: [
+                        'Криптография',
+                        'Этичный хакинг',
+                        'Анализ уязвимостей'
+                    ],
+                    difficulty: 'Профессиональный',
+                    icon: '🔒'
+                }
+            ];
+
+            return (
+                <div className="container mx-auto px-4 pt-24">
+                    <div className="text-center mb-12">
+                        <h1 className="text-4xl font-bold text-blue-600 mb-4">
+                            Теория Информатики
+                        </h1>
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Углубленное изучение фундаментальных концепций и передовых технологий
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-6">
+                        {complexTopics.map((topic, index) => (
+                            <div 
+                                key={index} 
+                                className="bg-white rounded-xl shadow-lg p-6 glowing-border card-hover"
+                            >
+                                <div className="text-5xl mb-4 text-center">{topic.icon}</div>
+                                <h2 className="text-2xl font-semibold text-blue-600 mb-3 text-center">
+                                    {topic.title}
+                                </h2>
+                                <p className="text-gray-600 mb-4 text-center">
+                                    {topic.description}
+                                </p>
+                                <div className="bg-blue-50 p-4 rounded-lg">
+                                    <h3 className="font-bold mb-2 text-center">Ключевые темы:</h3>
+                                    <ul className="space-y-1 text-center">
+                                        {topic.subtopics.map((subtopic, idx) => (
+                                            <li key={idx} className="text-gray-700">
+                                                • {subtopic}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <div className="mt-4 text-center">
+                                    <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
+                                        Уровень: {topic.difficulty}
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-                <div class="fact-card">
-                    <h3>Объём данных</h3>
-                    <p>Ежедневно в интернете создаётся около 2.5 квинтиллиона байт данных. Если записать это количество на DVD-диски, то получится стопка высотой до Луны и обратно.</p>
+            );
+        };
+
+        // Расширенная страница фактов с анимированным слайдером
+        const FactsPage = () => {
+            const [currentFact, setCurrentFact] = React.useState(0);
+            const techFacts = [
+                { 
+                    title: 'Первый компьютер', 
+                    text: 'ENIAC, первый электронный компьютер (1945), занимал 167 квадратных метров и весил около 30 тонн!',
+                    details: 'Для сравнения, современный смартфон в тысячи раз мощнее.',
+                    icon: '🖥️'
+                },
+                { 
+                    title: 'История Интернета', 
+                    text: 'Первое сообщение в интернете было отправлено 29 октября 1969 года в сети ARPANET между UCLA и Stanford.',
+                    details: 'Это была революция в коммуникациях, положившая начало современной цифровой эре.',
+                    icon: '🌐'
+                },
+                { 
+                    title: 'Квантовые Вычисления', 
+                    text: 'Квантовый компьютер способен решать задачи за секунды, на которые обычному компьютеру потребовались бы тысячи лет.',
+                    details: 'Технология, которая может изменить будущее вычислительной техники.',
+                    icon: '🔬'
+                }
+            ];
+
+            const nextFact = () => {
+                setCurrentFact((prev) => (prev + 1) % techFacts.length);
+            };
+
+            const prevFact = () => {
+                setCurrentFact((prev) => (prev - 1 + techFacts.length) % techFacts.length);
+            };
+
+            return (
+                <div className="container mx-auto px-4 pt-24 flex justify-center items-center">
+                    <div className="w-full max-w-2xl">
+                        <div className="bg-white rounded-2xl shadow-2xl p-8 relative overflow-hidden glass-morphism">
+                            <div className="absolute top-4 right-4 text-5xl">
+                                {techFacts[currentFact].icon}
+                            </div>
+                            <button 
+                                onClick={prevFact} 
+                                className="absolute left-4 top-1/2 transform -translate-y-1/2 
+                                    bg-blue-500 text-white p-2 rounded-full 
+                                    hover:bg-blue-600 transition-all"
+                            >
+                                ←
+                            </button>
+                            <button 
+                                onClick={nextFact} 
+                                className="absolute right-4 top-1/2 transform -translate-y-1/2 
+                                    bg-blue-500 text-white p-2 rounded-full 
+                                    hover:bg-blue-600 transition-all"
+                            >
+                                →
+                            </button>
+                            
+                            <div className="text-center">
+                                <h2 className="text-3xl font-bold text-blue-700 mb-4">
+                                    {techFacts[currentFact].title}
+                                </h2>
+                                <p className="text-lg text-gray-700 mb-4">
+                                    {techFacts[currentFact].text}
+                                </p>
+                                <div className="bg-blue-50 p-4 rounded-lg">
+                                    <p className="italic text-gray-600">
+                                        {techFacts[currentFact].details}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </section>
-        
-        <section class="topics-section">
-            <h2>Что мы изучаем</h2>
-            <ul class="topics-list">
-                <li class="topic-item">
-                    <div class="topic-icon">💻</div>
-                    <div>
-                        <h3>Устройство компьютера</h3>
-                        <p>Процессор, память, устройства ввода и вывода</p>
+            );
+        };
+
+        // Расширенная интерактивная страница
+        const InteractivePage = () => {
+            // Расширенная викторина
+            const [quizQuestions, setQuizQuestions] = React.useState([
+                {
+                    question: 'Что такое алгоритм?',
+                    options: [
+                        'Математическая формула',
+                        'Последовательность действий для решения задачи',
+                        'Название программы',
+                        'Тип компьютера'
+                    ],
+                    correct: 1,
+                    explanation: 'Алгоритм - это точно описанная последовательность действий для решения определенной задачи.'
+                },
+                {
+                    question: 'Что означает HTML?',
+                    options: [
+                        'High Tech Modern Language',
+                        'Hypertext Markup Language',
+                        'Home Tool Markup Language',
+                        'Hyper Transfer Markup Language'
+                    ],
+                    correct: 1,
+                    explanation: 'HTML (HyperText Markup Language) - стандартный язык разметки для создания веб-страниц.'
+                },
+                {
+                    question: 'Что такое машинное обучение?',
+                    options: [
+                        'Ремонт компьютеров',
+                        'Метод обучения компьютеров распознавать закономерности без явного программирования',
+                        'Написание учебников для компьютеров',
+                        'Способ быстрой загрузки данных'
+                    ],
+                    correct: 1,
+                    explanation: 'Машинное обучение - это технология, позволяющая компьютерам учиться на основе данных без прямого программирования.'
+                }
+            ]);
+
+            const [currentQuestion, setCurrentQuestion] = React.useState(0);
+            const [score, setScore] = React.useState(0);
+            const [showScore, setShowScore] = React.useState(false);
+            const [selectedAnswer, setSelectedAnswer] = React.useState(null);
+
+            const handleAnswerClick = (selectedIndex) => {
+                // Если ответ уже выбран, ничего не делаем
+                if (selectedAnswer !== null) return;
+
+                setSelectedAnswer(selectedIndex);
+
+                // Небольшая задержка перед переходом к следующему вопросу
+                setTimeout(() => {
+                    if (selectedIndex === quizQuestions[currentQuestion].correct) {
+                        setScore(score + 1);
+                    }
+
+                    const nextQuestion = currentQuestion + 1;
+                    if (nextQuestion < quizQuestions.length) {
+                        setCurrentQuestion(nextQuestion);
+                        setSelectedAnswer(null);
+                    } else {
+                        setShowScore(true);
+                    }
+                }, 1500);
+            };
+
+            // Интерактивная схема работы компьютера
+            const ComputerScheme = () => {
+                const [selectedComponent, setSelectedComponent] = React.useState(null);
+
+                const components = [
+                    {
+                        name: 'Процессор (CPU)',
+                        description: 'Центральный мозг компьютера, выполняющий вычисления и обработку данных.',
+                        icon: '🧠'
+                    },
+                    {
+                        name: 'Оперативная память (RAM)',
+                        description: 'Временное хранилище данных для быстрого доступа и обработки.',
+                        icon: '📦'
+                    },
+                    {
+                        name: 'Жесткий диск',
+                        description: 'Долговременное хранилище данных, программ и операционной системы.',
+                        icon: '💾'
+                    }
+                ];
+
+                return (
+                    <div className="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 className="text-2xl font-semibold text-blue-600 mb-4 text-center">
+                            Как работает компьютер
+                        </h3>
+                        <div className="grid md:grid-cols-3 gap-4">
+                            {components.map((comp, index) => (
+                                <div 
+                                    key={index} 
+                                    onClick={() => setSelectedComponent(comp)}
+                                    className={`
+                                        bg-blue-100 p-4 rounded-lg cursor-pointer 
+                                        transition-all hover:bg-blue-200
+                                        ${selectedComponent === comp ? 'ring-2 ring-blue-500' : ''}
+                                    `}
+                                >
+                                    <div className="text-4xl text-center mb-2">{comp.icon}</div>
+                                    <h4 className="font-bold text-center">{comp.name}</h4>
+                                </div>
+                            ))}
+                        </div>
+
+                        {selectedComponent && (
+                            <div className="mt-6 bg-blue-50 p-4 rounded-lg text-center">
+                                <h4 className="text-xl font-semibold text-blue-700 mb-2">
+                                    {selectedComponent.name}
+                                </h4>
+                                <p className="text-gray-700">
+                                    {selectedComponent.description}
+                                </p>
+                            </div>
+                        )}
                     </div>
-                </li>
-                <li class="topic-item">
-                    <div class="topic-icon">🌐</div>
-                    <div>
-                        <h3>Компьютерные сети</h3>
-                        <p>Интернет, протоколы передачи данных</p>
+                );
+            };
+
+            return (
+                <div className="container mx-auto px-4 pt-24 space-y-8">
+                    <div className="bg-white p-8 rounded-xl shadow-lg glass-morphism">
+                        <h2 className="text-3xl font-bold text-blue-700 mb-6 text-center">
+                            Викторина по Информатике
+                        </h2>
+                        {!showScore ? (
+                            <div>
+                                <h3 className="text-xl mb-4 text-center">
+                                    {quizQuestions[currentQuestion].question}
+                                </h3>
+                                <div className="grid md:grid-cols-2 gap-4">
+                                    {quizQuestions[currentQuestion].options.map((option, index) => (
+                                        <button 
+                                            key={index} 
+                                            onClick={() => handleAnswerClick(index)}
+                                            className={`
+                                                p-4 rounded-lg transition-all 
+                                                ${selectedAnswer === null 
+                                                    ? 'bg-blue-500 text-white hover:bg-blue-600' 
+                                                    : (
+                                                        index === quizQuestions[currentQuestion].correct 
+                                                            ? 'bg-green-500 text-white' 
+                                                            : (selectedAnswer === index 
+                                                                ? 'bg-red-500 text-white' 
+                                                                : 'bg-blue-500 text-white opacity-50')
+                                                    )
+                                                }
+                                            `}
+                                            disabled={selectedAnswer !== null}
+                                        >
+                                            {option}
+                                        </button>
+                                    ))}
+                                </div>
+                                {selectedAnswer !== null && (
+                                    <div className="mt-4 text-center">
+                                        <p className="text-gray-700">
+                                            {quizQuestions[currentQuestion].explanation}
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <div className="text-center">
+                                <h3 className="text-2xl mb-4">
+                                    Ваш результат: {score} из {quizQuestions.length}
+                                </h3>
+                                {score === quizQuestions.length && (
+                                    <p className="text-green-600 font-bold">
+                                        🏆 Отличный результат! Вы настоящий эксперт в информатике! 🏆
+                                    </p>
+                                )}
+                                {score >= quizQuestions.length - 1 && score < quizQuestions.length && (
+                                    <p className="text-blue-600 font-bold">
+                                        👍 Очень хороший результат! Почти всё верно! 👍
+                                    </p>
+                                )}
+                                {score < quizQuestions.length - 1 && (
+                                    <p className="text-orange-600 font-bold">
+                                        📚 Есть над чем поработать. Продолжайте изучать информатику! 📚
+                                    </p>
+                                )}
+                            </div>
+                        )}
                     </div>
-                </li>
-                <li class="topic-item">
-                    <div class="topic-icon">🧮</div>
-                    <div>
-                        <h3>Алгоритмы</h3>
-                        <p>Последовательность действий для решения задач</p>
+                    <ComputerScheme />
+                </div>
+            );
+        };
+
+        // Главный компонент приложения
+        const App = () => {
+            const [currentPage, setCurrentPage] = React.useState('home');
+
+            const renderPage = () => {
+                switch(currentPage) {
+                    case 'home': return <HomePage />;
+                    case 'theory': return <TheoryPage />;
+                    case 'facts': return <FactsPage />;
+                    case 'interactive': return <InteractivePage />;
+                    default: return <HomePage />;
+                }
+            };
+
+            return (
+                <div>
+                    <Navigation changePage={setCurrentPage} currentPage={currentPage} />
+                    <div className={`page-transition ${currentPage ? 'page-transition-enter' : ''}`}>
+                        {renderPage()}
                     </div>
-                </li>
-                <li class="topic-item">
-                    <div class="topic-icon">📊</div>
-                    <div>
-                        <h3>Обработка данных</h3>
-                        <p>Таблицы, базы данных, графики</p>
-                    </div>
-                </li>
-                <li class="topic-item">
-                    <div class="topic-icon">🔐</div>
-                    <div>
-                        <h3>Информационная безопасность</h3>
-                        <p>Защита данных и безопасность в интернете</p>
-                    </div>
-                </li>
-                <li class="topic-item">
-                    <div class="topic-icon">📝</div>
-                    <div>
-                        <h3>Программирование</h3>
-                        <p>Основы разработки программ и веб-сайтов</p>
-                    </div>
-                </li>
-            </ul>
-        </section>
-    </div>
-    
-    <footer>
-        <p>Школьный проект по информатике</p>
-        <p>© 2025</p>
-    </footer>
+                </div>
+            );
+        };
+
+        // Рендеринг приложения
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
 </body>
 </html>
