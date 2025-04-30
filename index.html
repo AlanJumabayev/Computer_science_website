@@ -51,13 +51,19 @@
             background-origin: border-box;
             background-clip: padding-box, border-box;
         }
+        .image-quiz-transition {
+            transition: all 0.5s ease;
+            opacity: 1;
+        }
+        .image-quiz-fade {
+            opacity: 0;
+        }
     </style>
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
-        // Расширенная навигация с иконками и подсветкой
         const Navigation = ({ changePage, currentPage }) => {
             const navItems = [
                 { 
@@ -105,7 +111,6 @@
             );
         };
 
-        // Расширенная главная страница
         const HomePage = () => {
             const highlights = [
                 {
@@ -162,7 +167,6 @@
             );
         };
 
-        // Расширенная страница теории
         const TheoryPage = () => {
             const complexTopics = [
                 {
@@ -246,7 +250,6 @@
             );
         };
 
-        // Расширенная страница фактов с анимированным слайдером
         const FactsPage = () => {
             const [currentFact, setCurrentFact] = React.useState(0);
             const techFacts = [
@@ -321,9 +324,7 @@
             );
         };
 
-        // Расширенная интерактивная страница
         const InteractivePage = () => {
-            // Расширенная викторина
             const [quizQuestions, setQuizQuestions] = React.useState([
                 {
                     question: 'Что такое алгоритм?',
@@ -366,12 +367,10 @@
             const [selectedAnswer, setSelectedAnswer] = React.useState(null);
 
             const handleAnswerClick = (selectedIndex) => {
-                // Если ответ уже выбран, ничего не делаем
                 if (selectedAnswer !== null) return;
 
                 setSelectedAnswer(selectedIndex);
 
-                // Небольшая задержка перед переходом к следующему вопросу
                 setTimeout(() => {
                     if (selectedIndex === quizQuestions[currentQuestion].correct) {
                         setScore(score + 1);
@@ -387,7 +386,215 @@
                 }, 1500);
             };
 
-            // Интерактивная схема работы компьютера
+            const ImageQuiz = () => {
+                const [imageQuizQuestions] = React.useState([
+                    {
+                        image: "https://object.pscloud.io/cms/cms/Photo/img_0_88_187_6_1_lpEHC7.jpg",
+                        question: "Что изображено на картинке?",
+                        options: [
+                            "Процессор", 
+                            "Клавиатура", 
+                            "Материнская плата", 
+                            "Видеокарта"
+                        ],
+                        correct: 1,
+                        explanation: "На изображении представлена клавиатура - устройство ввода, которое позволяет пользователю вводить текст и команды в компьютер."
+                    },
+                    {
+                        image: "https://upload.wikimedia.org/wikipedia/commons/1/12/Intel_i9-14900K.webp",
+                        question: "Этот компонент называется?",
+                        options: [
+                            "Жёсткий диск", 
+                            "Блок питания", 
+                            "Процессор (CPU)", 
+                            "Сетевая карта"
+                        ],
+                        correct: 2,
+                        explanation: "На изображении представлен центральный процессор (CPU) - основной чип компьютера, который выполняет вычисления и обработку инструкций."
+                    },
+                    {
+                        image: "https://www.e-xecutive.ru/wiki/images/8/87/Algoritm.jpg",
+                        question: "Что показано на этой блок-схеме?",
+                        options: [
+                            "Структура сайта", 
+                            "Алгоритм решения задачи", 
+                            "План базы данных", 
+                            "Архитектура нейросети"
+                        ],
+                        correct: 1,
+                        explanation: "На изображении представлена блок-схема алгоритма - графическое представление последовательности действий для решения задачи."
+                    },
+                    {
+                        image: "https://6ef4e6a1-9d49-47ac-bfed-170f67a815cf.selcdn.net/blog/wp-content/uploads/2020/12/MD-184_OSI-1.png",
+                        question: "Какая модель представлена на изображении?",
+                        options: [
+                            "Модель OSI", 
+                            "Модель клиент-сервер", 
+                            "Модель TCP/IP", 
+                            "Модель MVC"
+                        ],
+                        correct: 0,
+                        explanation: "На изображении представлена модель OSI (Open Systems Interconnection) - абстрактная модель, описывающая уровни взаимодействия сетевых протоколов."
+                    },
+                    {
+                        image: "https://lh4.googleusercontent.com/proxy/Xsu6TDOcs9J6270Uh-6etedNTRXgRBdkWQAJF48ug67NUp8rWERpFTGeCig0kETfwFhMZH-vefJpwwzd",
+                        question: "Какой язык программирования/разметки показан на скриншоте?",
+                        options: [
+                            "JavaScript", 
+                            "Python", 
+                            "HTML", 
+                            "CSS"
+                        ],
+                        correct: 2,
+                        explanation: "На изображении представлен код HTML (HyperText Markup Language) - стандартный язык разметки для создания веб-страниц."
+                    }
+                ]);
+
+                const [currentImageQuestion, setCurrentImageQuestion] = React.useState(0);
+                const [imageQuizScore, setImageQuizScore] = React.useState(0);
+                const [showImageQuizScore, setShowImageQuizScore] = React.useState(false);
+                const [selectedImageAnswer, setSelectedImageAnswer] = React.useState(null);
+                const [fadeState, setFadeState] = React.useState(false);
+
+                const handleImageAnswerClick = (selectedIndex) => {
+                    if (selectedImageAnswer !== null) return;
+
+                    setSelectedImageAnswer(selectedIndex);
+
+                    if (selectedIndex === imageQuizQuestions[currentImageQuestion].correct) {
+                        setImageQuizScore(imageQuizScore + 1);
+                    }
+
+                    setTimeout(() => {
+                        const nextQuestion = currentImageQuestion + 1;
+                        
+                        if (nextQuestion < imageQuizQuestions.length) {
+                            setFadeState(true);
+                            
+                            setTimeout(() => {
+                                setCurrentImageQuestion(nextQuestion);
+                                setSelectedImageAnswer(null);
+                                
+                                setTimeout(() => {
+                                    setFadeState(false);
+                                }, 50);
+                            }, 500);
+                        } else {
+                            setShowImageQuizScore(true);
+                        }
+                    }, 1500);
+                };
+
+                const restartImageQuiz = () => {
+                    setCurrentImageQuestion(0);
+                    setImageQuizScore(0);
+                    setShowImageQuizScore(false);
+                    setSelectedImageAnswer(null);
+                };
+
+                return (
+                    <div className="bg-white p-8 rounded-xl shadow-lg glass-morphism mt-8">
+                        <h2 className="text-3xl font-bold text-purple-700 mb-6 text-center">
+                            Викторина по Изображениям
+                        </h2>
+                        
+                        {!showImageQuizScore ? (
+                            <div className={`image-quiz-transition ${fadeState ? 'image-quiz-fade' : ''}`}>
+                                <div className="mb-6 flex justify-center">
+                                    <img 
+                                        src={imageQuizQuestions[currentImageQuestion].image} 
+                                        alt="Quiz Image" 
+                                        className="rounded-lg shadow-lg max-w-full h-auto max-h-64"
+                                    />
+                                </div>
+                                
+                                <h3 className="text-xl mb-4 text-center">
+                                    Вопрос {currentImageQuestion + 1} из {imageQuizQuestions.length}: {imageQuizQuestions[currentImageQuestion].question}
+                                </h3>
+                                
+                                <div className="grid md:grid-cols-2 gap-4">
+                                    {imageQuizQuestions[currentImageQuestion].options.map((option, index) => (
+                                        <button 
+                                            key={index} 
+                                            onClick={() => handleImageAnswerClick(index)}
+                                            className={`
+                                                p-4 rounded-lg transition-all text-center
+                                                ${selectedImageAnswer === null 
+                                                    ? 'bg-purple-500 text-white hover:bg-purple-600' 
+                                                    : (
+                                                        index === imageQuizQuestions[currentImageQuestion].correct 
+                                                            ? 'bg-green-500 text-white' 
+                                                            : (selectedImageAnswer === index 
+                                                                ? 'bg-red-500 text-white' 
+                                                                : 'bg-purple-500 text-white opacity-50')
+                                                    )
+                                                }
+                                            `}
+                                            disabled={selectedImageAnswer !== null}
+                                        >
+                                            {option}
+                                        </button>
+                                    ))}
+                                </div>
+                                
+                                {selectedImageAnswer !== null && (
+                                    <div className="mt-4 p-4 bg-blue-50 rounded-lg">
+                                        <p className="text-gray-700 text-center">
+                                            {imageQuizQuestions[currentImageQuestion].explanation}
+                                        </p>
+                                    </div>
+                                )}
+                                
+                                <div className="mt-4 flex justify-between items-center">
+                                    <div className="text-sm text-gray-600">
+                                        Вопрос {currentImageQuestion + 1} из {imageQuizQuestions.length}
+                                    </div>
+                                    <div className="text-sm font-bold text-purple-600">
+                                        Текущий счёт: {imageQuizScore}
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="text-center">
+                                <h3 className="text-2xl mb-4">
+                                    Ваш результат: {imageQuizScore} из {imageQuizQuestions.length}
+                                </h3>
+                                
+                                {imageQuizScore === imageQuizQuestions.length && (
+                                    <div>
+                                        <p className="text-green-600 font-bold text-xl mb-6">
+                                            🏆 Превосходно! Вы эксперт по визуальному распознаванию в информатике! 🏆
+                                        </p>
+                                        <div className="w-full flex justify-center mb-6">
+                                            <div className="text-6xl animate-bounce">🎉</div>
+                                        </div>
+                                    </div>
+                                )}
+                                
+                                {imageQuizScore >= imageQuizQuestions.length * 0.7 && imageQuizScore < imageQuizQuestions.length && (
+                                    <p className="text-blue-600 font-bold text-xl mb-6">
+                                        👍 Очень хороший результат! Вы хорошо разбираетесь в компонентах компьютера и технологиях! 👍
+                                    </p>
+                                )}
+                                
+                                {imageQuizScore < imageQuizQuestions.length * 0.7 && (
+                                    <p className="text-orange-600 font-bold text-xl mb-6">
+                                        📚 Неплохой результат! Продолжайте изучать компоненты и технологии компьютера! 📚
+                                    </p>
+                                )}
+                                
+                                <button 
+                                    onClick={restartImageQuiz}
+                                    className="bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-lg shadow-lg transition-all"
+                                >
+                                    Пройти викторину ещё раз
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                );
+            };
+
             const ComputerScheme = () => {
                 const [selectedComponent, setSelectedComponent] = React.useState(null);
 
@@ -495,7 +702,7 @@
                                 </h3>
                                 {score === quizQuestions.length && (
                                     <p className="text-green-600 font-bold">
-                                        🏆 Отличный результат! Вы настоящий эксперт в информатике! 🏆
+                                        🏆 Отличный результат! Вы настоящий эксперт в информатике! :) 🏆
                                     </p>
                                 )}
                                 {score >= quizQuestions.length - 1 && score < quizQuestions.length && (
@@ -511,12 +718,14 @@
                             </div>
                         )}
                     </div>
+                    
+                    <ImageQuiz />
+                    
                     <ComputerScheme />
                 </div>
             );
         };
 
-        // Главный компонент приложения
         const App = () => {
             const [currentPage, setCurrentPage] = React.useState('home');
 
@@ -540,7 +749,6 @@
             );
         };
 
-        // Рендеринг приложения
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
 </body>
